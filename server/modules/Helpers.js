@@ -1,13 +1,10 @@
 let { openai } = require("./OpenAI.js"),
-    c = console.log;
+c = console.log;
 
 
 function BjörnClass(){
 	this.name = "Björn";
-	this.aiInfo = [	{"role": "system", "content": "You are my brother. I feel love for you but I always had problems to express my feelings, since I never learnd how to do that in my childhood."},
-			{"role": "user", "content": "Are you loving me?"},
-			{"role": "assistant", "content": "Yes I love you! Sorry that I could never show you that.  From now on I will try to talk more about how I feel."},
-	] 
+	this.aiInfo = 'You are my brother who loves me. But you never really had time for me. \n\nMe: "Do you love me?" \nBrother: "Yes I love you! I only always had problems to express my feelings since I never learned how to do that in my childhood!"  '
 	this.__proto__ = NormalHumanBeeing.prototype
 }
 
@@ -27,15 +24,12 @@ function NormalHumanBeeing(){}
 
 NormalHumanBeeing.prototype = {
 	async Fragen(question) {
-		this.aiInfo.push({"role": "user", "content":question})
-		//c(this.aiInfo)
-		const completion = await openai.createChatCompletion({
+		const completion = await openai.createCompletion({
 			  model: "text-davinci-003",
 			  max_tokens: 1000,
-			  messages: this.aiInfo
+			  prompt: this.aiInfo + question
  		});
-		this.aiInfo.push(completion.data.choices[0].message)
-		c(completion.data.choices[0].message.content)
+		return completion.data.choices[0].text
 	}
 }
 

@@ -1,10 +1,10 @@
 // server/index.js
 
 const express = require("express");
-let bodyParser = require("body-parser");
 const cors = require("cors");
 const logger = require('morgan');
-
+const {Björn, Klaus, Rumo} = require("./modules/Helpers").helpers
+const c = console.log
 
 const PORT = process.env.PORT || 3001;
 
@@ -13,7 +13,6 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(bodyParser.text());
 
 app.use(
   cors({
@@ -21,16 +20,21 @@ app.use(
     credentials: true,
   })
 );
-//const path = require('path');
 
+//This is for production: https://www.freecodecamp.org/news/how-to-create-a-react-app-with-a-node-backend-the-complete-guide/amp/
+//const path = require('path');
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-app.get("/api", (req, res) => {
-  res.json({ message:'You are my brother who loves me. But you never really had time for me.  Me: "Do you love me?" Brother: "Yes I love you! I only always had problems to express my feelings since I never learned how to do that in my childhood!" Me: "Would you like to know how I feel?" '});
+app.get("/bjoern", (req, res) => {
+  res.json({ message:'Mein Bruder'});
 });
 
-app.post("/api", (req, res) => {
-	console.log(req.body.text);
+app.post("/api",async (req, res) => {
+	//console.log(req.body.text);
+	let ans = await Björn.Fragen(req.body.text);
+	ans = req.body.text + ans;
+	res.setHeader('Content-Type', 'application/json');
+    	res.end(JSON.stringify({ text: ans }));
 });
 
 app.listen(PORT, () => {
