@@ -1,12 +1,16 @@
 {
   "name": "das-kind-in-dir-muss-heima-finden",
   "version": "1.0.0",
+  "engines": {
+      "node": "your-node-version"
+  },
   "description": "",
   "main": "Übung: Finde innere Helfer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd client && npm install && npm run build",
+    "production": "cd client && npm install && npm run build && NODE_ENV='prod' node server/index.js"
   },
   "keywords": [],
   "author": "",

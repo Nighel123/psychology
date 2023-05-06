@@ -9,7 +9,7 @@ export default function Helper() {
   const { helper } = useParams();
 
   React.useEffect(() => {
-    fetch("/" + helper)
+    fetch("/api/" + helper)
       .then((res) => res.json())
       .then((data) => {
 	setData(data.heading)
@@ -19,7 +19,7 @@ export default function Helper() {
 
   const postText = () => {
 	
-	fetch('/ '+ helper, {
+	fetch('/api/'+ helper, {
 		method: "POST",
 		headers: {
 		  'Content-type': 'application/json'

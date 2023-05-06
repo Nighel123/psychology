@@ -32,6 +32,7 @@ function RumoClass(){
 function NormalHumanBeeing(){}
 
 NormalHumanBeeing.prototype = {
+	answerPrompt : '\nIch: "',
 	async Fragen(question) {
 		const completion = await openai.createCompletion({
 			  model: "text-davinci-003",

@@ -1,46 +1,55 @@
 // server/index.js
-
 const express = require("express");
-const cors = require("cors");
-const logger = require('morgan');
 const helpers = require("./modules/Helpers").helpers
 const c = console.log
+const path = require('path');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
-//console.log("right here")
 const app = express();
-app.use(logger('dev'));
+
+if (process.env.NODE_ENV === 'dev') {
+    c("Running Node Server in Development Enviroment")
+    const cors = require("cors");
+    const logger = require('morgan');
+    app.use(logger('dev'));
+    app.use(
+      cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+      })
+    );
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  })
-);
-
 //This is for production: https://www.freecodecamp.org/news/how-to-create-a-react-app-with-a-node-backend-the-complete-guide/amp/
-//const path = require('path');
-//app.use(express.static(path.resolve(__dirname, '../client/build')));
+if (process.env.NODE_ENV === 'prod') {
+    c("Running Node Server in Production Enviroment")
+    app.use(express.static(path.resolve(__dirname, '../client/build')));
+}
 
-app.get("/:helper", (req, res) => {
+app.get("/api/:helper", (req, res) => {
 	let helper = req.params.helper.toLowerCase()
     helper = helpers[helper]
    	res.json({ 
         heading: helper.relation + ": " + helper.name,
-        text: helper.chatName + ": " + helper.firstQuest,
+        text: helper.chatName + ": " + helper.firstQuest + helper.answerPrompt,
     });
 });
 
-app.post("/:helper",async (req, res) => {
-	//console.log(req.body.text);
+app.post("/api/:helper", async (req, res) => {
 	let helper = req.params.helper.toLowerCase()
 	let ans = await helpers[helper].Fragen(req.body.text);
 	ans = req.body.text + ans;
 	res.setHeader('Content-Type', 'application/json');
     	res.end(JSON.stringify({ text: ans }));
+});
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
