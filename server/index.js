@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'development') {
     c("Running Node Server in Development Enviroment")
     const cors = require("cors");
     const logger = require('morgan');
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //This is for production: https://www.freecodecamp.org/news/how-to-create-a-react-app-with-a-node-backend-the-complete-guide/amp/
-if (process.env.NODE_ENV === 'prod') {
+if (process.env.NODE_ENV === 'production') {
     c("Running Node Server in Production Enviroment")
     app.use(express.static(path.resolve(__dirname, '../client/build')));
 }
