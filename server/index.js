@@ -4,7 +4,7 @@ const helpers = require("./modules/Helpers").helpers
 const c = console.log
 const path = require('path');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
