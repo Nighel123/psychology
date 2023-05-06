@@ -2,5 +2,3 @@ node_modules/*
 .DS_STORE
 *.swp
 client/node_modules/*
-client/build/*
-client/public/*
