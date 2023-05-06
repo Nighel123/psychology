@@ -1,10 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom'
 
+let c = console.log
+
 export default function Helper() {
   const [data, setData] = React.useState(null);
 	
   const { helper } = useParams();
+  //c(props.helper)
   React.useEffect(() => {
     fetch("/" + helper)
       .then((res) => res.json())
@@ -15,7 +18,7 @@ export default function Helper() {
   const postText = () => {
 	//alert(text);
 	
-	fetch('/api', {
+	fetch('/ '+ helper, {
 		method: "POST",
 		headers: {
 		  'Content-type': 'application/json'

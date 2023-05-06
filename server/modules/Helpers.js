@@ -2,7 +2,7 @@ let { openai } = require("./OpenAI.js"),
 c = console.log;
 
 
-function BjörnClass(){
+function BjoernClass(){
 	this.name = "Björn";
 	this.aiInfo = 'You are my brother who loves me. But you never really had time for me. \n\nMe: "Do you love me?" \nBrother: "Yes I love you! I only always had problems to express my feelings since I never learned how to do that in my childhood!"  '
 	this.__proto__ = NormalHumanBeeing.prototype
@@ -33,12 +33,12 @@ NormalHumanBeeing.prototype = {
 	}
 }
 
-let Björn = new BjörnClass, 
-    Klaus = new KlausClass, 
-    Rumo = new RumoClass;
+let bjoern = new BjoernClass, 
+    klaus = new KlausClass, 
+    rumo = new RumoClass;
 
 exports.helpers = {
-	Björn,
-	Klaus,
-	Rumo,
+	bjoern,
+	klaus,
+	rumo,
 }

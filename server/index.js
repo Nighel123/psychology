@@ -3,7 +3,7 @@
 const express = require("express");
 const cors = require("cors");
 const logger = require('morgan');
-const {Björn, Klaus, Rumo} = require("./modules/Helpers").helpers
+const helpers = require("./modules/Helpers").helpers
 const c = console.log
 
 const PORT = process.env.PORT || 3001;
@@ -25,13 +25,29 @@ app.use(
 //const path = require('path');
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-app.get("/bjoern", (req, res) => {
-  res.json({ message:'Mein Bruder'});
+app.get("/:helper", (req, res) => {
+	let helper = req.params.helper.toLowerCase()
+	switch (helper){
+		case 'bjoern':
+  			res.json({ message:'Mein Bruder'});
+            break;
+        case 'klaus':
+            res.json({ message:'Mein Vater'});
+            break;
+        case 'rumo':
+            res.json({ message:'Mein Beschützer'});
+            break;
+        default:
+            res.json({ message:'Mein Helfer'});
+    }
 });
 
-app.post("/api",async (req, res) => {
+app.post("/:helper",async (req, res) => {
 	//console.log(req.body.text);
-	let ans = await Björn.Fragen(req.body.text);
+	let helper = req.params.helper.toLowerCase()
+    c(helper)
+    c(helpers[helper])
+	let ans = await helpers[helper].Fragen(req.body.text);
 	ans = req.body.text + ans;
 	res.setHeader('Content-Type', 'application/json');
     	res.end(JSON.stringify({ text: ans }));
