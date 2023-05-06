@@ -2,7 +2,7 @@
   "name": "das-kind-in-dir-muss-heima-finden",
   "version": "1.0.0",
   "engines": {
-      "node": "your-node-version"
+      "node": "^18.13.0"
   },
   "description": "",
   "main": "Übung: Finde innere Helfer.js",
