@@ -5,18 +5,19 @@ let c = console.log
 
 export default function Helper() {
   const [data, setData] = React.useState(null);
-	
+  const [text, setText] = React.useState("")
   const { helper } = useParams();
-  //c(props.helper)
+
   React.useEffect(() => {
     fetch("/" + helper)
       .then((res) => res.json())
-      .then((data) => setData(data.message));
+      .then((data) => {
+	setData(data.heading)
+		setText(data.text)
+	});
   }, []);
-  const [text, setText] = React.useState('\nMe: "Would you like to know how I feel?"')
 
   const postText = () => {
-	//alert(text);
 	
 	fetch('/ '+ helper, {
 		method: "POST",
@@ -27,7 +28,6 @@ export default function Helper() {
 	})
 	.then((response) => response.json())
 	.then((result) => {
-	  //console.log(result)
 	  setText(result.text)
 	}).catch(function() {
         console.log("error");
@@ -46,7 +46,7 @@ export default function Helper() {
 		value={text}
 		placeholder="What do you want to ask me?" />
 	<button onClick={postText}>
-		 Alert
+		 Send
 	</button>
 	</div>
 )

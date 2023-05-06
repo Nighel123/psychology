@@ -27,26 +27,16 @@ app.use(
 
 app.get("/:helper", (req, res) => {
 	let helper = req.params.helper.toLowerCase()
-	switch (helper){
-		case 'bjoern':
-  			res.json({ message:'Mein Bruder'});
-            break;
-        case 'klaus':
-            res.json({ message:'Mein Vater'});
-            break;
-        case 'rumo':
-            res.json({ message:'Mein Beschützer'});
-            break;
-        default:
-            res.json({ message:'Mein Helfer'});
-    }
+    helper = helpers[helper]
+   	res.json({ 
+        heading: helper.relation + ": " + helper.name,
+        text: helper.chatName + ": " + helper.firstQuest,
+    });
 });
 
 app.post("/:helper",async (req, res) => {
 	//console.log(req.body.text);
 	let helper = req.params.helper.toLowerCase()
-    c(helper)
-    c(helpers[helper])
 	let ans = await helpers[helper].Fragen(req.body.text);
 	ans = req.body.text + ans;
 	res.setHeader('Content-Type', 'application/json');
