@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
 const repl = require('repl')
 const talkModel = require("./modules/models")
+require('dotenv').config()
 
 let c = console.log
 
-mongoose.connect('mongodb+srv://nickelpaulsen:JvSolzprsUVLRaHW@psycho.mqlealx.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGOOSE_CONNECT_LINK,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -48,4 +49,3 @@ async function Delete(){
     c(talk)
 }
 
-Delete()
