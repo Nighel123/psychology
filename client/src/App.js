@@ -1,7 +1,6 @@
 // client/src/App.js
 
 import React, { useState } from "react";
-import { useParams } from 'react-router-dom'
 import {
   BrowserRouter as Router,
   Route,
@@ -11,8 +10,6 @@ import Login from './Login';
 import "./App.css";
 
 import Helper from './Helper';
-
-var c = console.log
 
 function App() {
 

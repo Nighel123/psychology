@@ -7,7 +7,7 @@ exports.connect = () => {
     mongoose.connect(MONGOOSE_CONNECT_LINK,
         {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
         }
     );
     
