@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-async function loginUser(credentials) {
+async function registerUser(credentials) {
   return fetch("/login", {
     method: "POST",
     headers: {
@@ -11,28 +11,41 @@ async function loginUser(credentials) {
   }).then((data) => data.json());
 }
 
-export default function Login({ setToken }) {
+export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await loginUser({
-      username,
+    const token = await registerUser({
+      first_name,
+      last_name,
+      email,
       password,
     });
     setToken(token);
   };
 
-  const [username, setUserName] = useState();
+  const [first_name, setFirstName] = useState();
+  const [last_name, setLastName] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
   return (
-    <div className="login-wrapper">
+    <div className="register-wrapper">
       <h1>Please Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          <p>Username</p>
-          <input type="text" onChange={(e) => setUserName(e.target.value)} />
+          <p>First Name</p>
+          <input type="text" onChange={(e) => setFirstName(e.target.value)} />
         </label>
         <label>
-          <p>Password</p>
+          <p>Last Name</p>
+          <input type="text" onChange={(e) => setLastName(e.target.value)} />
+        </label>
+        <label>
+          <p>Email</p>
+          <input type="email" onChange={(e) => setEmail(e.target.value)} />
+        </label>
+        <label>
+          <p>Passwort</p>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -45,7 +58,3 @@ export default function Login({ setToken }) {
     </div>
   );
 }
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
