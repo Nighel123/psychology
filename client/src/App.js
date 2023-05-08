@@ -12,19 +12,19 @@ import Helper from "./Helper";
 function App() {
   const [token, setToken] = useState();
 
-  if (!token) {
-    return (
-      <div className="authWrapper">
-        <Router>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/Login" element={<Login setToken={setToken} />} />
-            <Route path="/Register" element={<Register />} />
-          </Routes>
-        </Router>
-      </div>
-    );
-  }
+  // if (!token) {
+  //   return (
+  //     <div className="authWrapper">
+  //       <Router>
+  //         <Routes>
+  //           <Route path="/" element={<LandingPage />} />
+  //           <Route path="/Login" element={<Login setToken={setToken} />} />
+  //           <Route path="/Register" element={<Register />} />
+  //         </Routes>
+  //       </Router>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="App">
